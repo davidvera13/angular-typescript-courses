@@ -1,0 +1,11 @@
+{
+  "name": "01-fundamentals",
+  "version": "1.0.0",
+  "description": "Learning type script",
+  "main": "07-debugging.ts",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC"
+}
