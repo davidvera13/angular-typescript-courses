@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "CommonJS",
+    "baseUrl": "src",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "sourceMap": true,
+    "noEmitOnError": true,
+    "strictNullChecks": true,
+    "removeComments": true
+  },
+
+}

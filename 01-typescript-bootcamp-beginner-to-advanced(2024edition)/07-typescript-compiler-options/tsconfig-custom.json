@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*2*"
+  ],
+  "files": [
+    "src/test.ts",
+    "src/test2.ts",
+    "src/test4.ts",
+    "src/test6.ts"
+  ]
+}
