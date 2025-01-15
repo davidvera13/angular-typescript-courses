@@ -1,0 +1,17 @@
+{
+  "name": "01-fundamentals",
+  "version": "1.0.0",
+  "description": "Learning type script",
+  "main": "03-run-on-browser.ts",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
