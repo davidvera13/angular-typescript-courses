@@ -29,6 +29,8 @@ import {
 } from "./routes/courses.controller";
 import {defaultErrorHandler} from "./middlewares/default-error-handler";
 import bodyParser from "body-parser";
+import {authenticate, createUser} from "./routes/user.controller";
+import {isAdmin, isAuthenticated} from "./middlewares/auth.middleware";
 
 const app = express();
 
@@ -37,13 +39,19 @@ function setupExpress() {
     app.use(bodyParser.json());
 
     app.route("/").get(root);
-    app.route("/api/courses").get(getAllCourses);
-    app.route("/api/courses/:courseUrl").get(getCourseByCourseUrl);
-    app.route("/api/courses/:courseId/lessons").get(getCourseLessons);
+    app.route("/api/courses").get(isAuthenticated, getAllCourses);
+    app.route("/api/courses/:courseUrl").get(isAuthenticated, getCourseByCourseUrl);
+    app.route("/api/courses/:courseId/lessons").get(isAuthenticated, getCourseLessons);
     // put is for update, patch is for partial update
-    app.route("/api/courses/:courseId").patch(updateCourse);
-    app.route("/api/courses").post(createCourse);
-    app.route("/api/courses/:courseId").delete(deleteCourseAndLessons);
+    // only admin can update
+    app.route("/api/courses/:courseId").patch(isAuthenticated, isAdmin, updateCourse);
+    // only admin can create course
+    app.route("/api/courses").post(isAuthenticated, isAdmin, createCourse);
+    // only admin can delete course
+    app.route("/api/courses/:courseId").delete(isAuthenticated, isAdmin, deleteCourseAndLessons);
+    // only admin can create user
+    app.route("/api/users").post(isAuthenticated, isAdmin, createUser);
+    app.route("/api/login").post(authenticate);
 
 
     // what method is called to handle default exceptions

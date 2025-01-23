@@ -15,6 +15,8 @@ import {COURSES, USERS} from "./db-data";
 import {DeepPartial} from "typeorm";
 import {Course} from "../course";
 import {Lesson} from "../lesson";
+import {User} from "../user";
+import {calculatePasswordHash} from "../../helpers/utils";
 
 async function populateDb() {
 
@@ -38,22 +40,22 @@ async function populateDb() {
         }
     }
 
-    //const users = Object.values(USERS) as any[];
-    //for (let userData of users) {
-    //    console.log(`Inserting user: ${userData}`);
-    //    const {email, pictureUrl, isAdmin, passwordSalt, plainTextPassword} = userData;
-    //    const user = AppDataSource
-    //        .getRepository(User)
-    //        .create({
-    //            email,
-    //            pictureUrl,
-    //            isAdmin,
-    //            passwordSalt,
-    //            passwordHash: await calculatePasswordHash(
-    //                plainTextPassword, passwordSalt)
-    //        });
-    //    await AppDataSource.manager.save(user);
-    //}
+    const users = Object.values(USERS) as any[];
+    for (let userData of users) {
+       console.log(`Inserting user: ${userData}`);
+       const {email, pictureUrl, isAdmin, passwordSalt, plainTextPassword} = userData;
+       const user = AppDataSource
+           .getRepository(User)
+           .create({
+               email,
+               pictureUrl,
+               isAdmin,
+               passwordSalt,
+               passwordHash: await calculatePasswordHash(
+                   plainTextPassword, passwordSalt)
+           });
+       await AppDataSource.manager.save(user);
+    }
 
     const totalCourses = await courseRepository
         .createQueryBuilder()

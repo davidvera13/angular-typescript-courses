@@ -1,6 +1,7 @@
 import {DataSource} from "typeorm";
 import {Course} from "./models/course";
 import {Lesson} from "./models/lesson";
+import {User} from "./models/user";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -16,7 +17,8 @@ export const AppDataSource = new DataSource({
     //    }
     //},
     entities: [
-        Course, Lesson
+        // tables must be listed here ...
+        Course, Lesson, User
     ],
     // this will allow to update tables on db
     synchronize: true,

@@ -7,6 +7,10 @@ import {isInteger} from "../helpers/utils";
 
 /**
  * retrieve all course from db
+ * without auth:
+ * curl http://localhost:9003/api/courses
+ * with auth:
+ * curl http://localhost:9003/api/courses -H "Authorization: eyJhbGciOiJI....eyJ1c2VySWQiOjIsImV....iLNWaB..."
  * @param request
  * @param response
  * @param next
@@ -15,8 +19,8 @@ export async function getAllCourses(
     request: Request, response: Response, next: NextFunction) {
 
     try {
-        logger.debug(`getAllCourses() Called`);
-        //logger.debug(`getAllCourses() Called`, request["user"]);
+        //logger.debug(`getAllCourses() Called`);
+        logger.debug(`getAllCourses() Called`, request["user"]);
 
         const courses = await AppDataSource
             .getRepository(Course)
