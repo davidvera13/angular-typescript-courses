@@ -1,0 +1,15 @@
+{
+  "name": "undestanding-ts",
+  "version": "1.0.0",
+  "description": "Typescript Course ",
+  "main": "01basics.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "lite-server"
+  },
+  "author": "David Vera",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
