@@ -55,9 +55,6 @@ class ProjectState extends State<Project> {
         return this.instance;
     }
 
-    //addListener(listener: Listener) {
-    //    this.listeners.push(listener);
-    //}
     addProject(title: string, description: string, people: number): void {
         const newProject = new Project(
             Math.random().toString(),
@@ -202,27 +199,12 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement>{
     constructor() {
         super('project-input', 'app', true, 'user-input')
         console.log('### constructor called!');
-        // this.templateElt = document.getElementById('project-input')! as HTMLTemplateElement;
-        // this.hostElt = document.getElementById('app')! as HTMLDivElement;
-        //
-        // const importedNode = document.importNode(this.templateElt.content, true);
-        // this.elt = importedNode.firstElementChild as HTMLFormElement;
-        // this.elt.id = 'user-input';
-        // this.titleInputElt = this.elt.querySelector('#title') as HTMLInputElement;
-        // this.descriptionInputElt = this.elt.querySelector('#description') as HTMLInputElement;
-        // this.peopleInputElt = this.elt.querySelector('#people') as HTMLInputElement;
 
         this.titleInputElt = this.elt.querySelector('#title') as HTMLInputElement;
         this.descriptionInputElt = this.elt.querySelector('#description') as HTMLInputElement;
         this.peopleInputElt = this.elt.querySelector('#people') as HTMLInputElement;
         this.configure();
-        // this.attach();
     }
-
-    //private attach() {
-    //    console.log('### attach called!');
-    //    this.hostElt.insertAdjacentElement('afterbegin', this.elt);
-    //}
 
     configure() {
         console.log('### configure called!');
@@ -289,14 +271,6 @@ class ProjectInput extends Component<HTMLDivElement, HTMLFormElement>{
             !validate(peopleValidatable)) {
             alert('Invalid input, please try again!');
             return;
-
-        // dirty way
-        // if(
-        //     enteredTitle.trim().length === 0 ||
-        //     enteredDescription.trim().length === 0 ||
-        //     enteredDescription.trim().length === 0) {
-        //     alert('Invalid input, try again');
-        //     return;
         } else {
             return [enteredTitle, enteredDescription, +enteredPeople];
         }
@@ -325,7 +299,6 @@ class ProjectItem
         // throw new Error("Method not implemented.");
     }
     renderContent(): void {
-        // throw new Error("Method not implemented.");
         // we have an h2 and h2 inside li tag
         console.log('### renderContent called!');
         this.elt.querySelector('h2')!.textContent = this.project.title;
@@ -354,10 +327,6 @@ class ProjectItem
 class ProjectList
     extends Component<HTMLDivElement, HTMLElement>
     implements DragTarget {
-    // in component class
-    //templateElt: HTMLTemplateElement;
-    //hostElt: HTMLDivElement;
-    //elt: HTMLElement;
     assignedProjects: Project[] ;
 
     constructor(private type: 'active' | 'finished') {
@@ -365,20 +334,10 @@ class ProjectList
         super('project-list', 'app', false, `${type}-projects` );
         console.log('### constructor called!');
         this.assignedProjects = [];
-        //this.templateElt = document.getElementById('project-list')! as HTMLTemplateElement;
-        //this.hostElt = document.getElementById('app')! as HTMLDivElement;
-        //const importedNode = document.importNode(this.templateElt.content, true);
-        //this.elt = importedNode.firstElementChild as HTMLInputElement;
-        //this.elt.id = `${type}-projects`;
-        //this.attach();
         this.configure();
         this.renderContent();
     }
 
-    //private attach() {
-    //    console.log('### attach called!');
-    //    this.hostElt.insertAdjacentElement('beforeend', this.elt);
-    //}
     configure() {
         console.log('### configure called!');
         this.elt.addEventListener('dragover', this.dragOverHandler);
@@ -445,12 +404,9 @@ class ProjectList
         if(event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
             event.preventDefault();
         }
-
         const listElt = this.elt.querySelector('ul')!;
         listElt.classList.add('droppable');
     }
-
-
 }
 
 const projectInput = new ProjectInput();
