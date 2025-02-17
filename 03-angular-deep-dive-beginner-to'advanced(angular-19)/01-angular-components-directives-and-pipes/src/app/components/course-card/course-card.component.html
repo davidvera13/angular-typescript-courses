@@ -1,0 +1,83 @@
+<!-- 4 ways :
+  1. using a string               [ngClass]="'beginner'"
+  2. using an array of strings    [ngClass]="['beginner'? 'course-card']"
+  3. using a configuration object [ngClass]="{'beginner': true, 'course-card', true}"
+  4. create config in method
+-->
+<div class="course-card"
+     *ngIf="course"
+     [ngClass]="setCardClass()"
+>
+  <!-- [style.text-decoration]="'underline'" -->
+  <!-- [ngStyle]="{'text-decoration': 'underline'}" -->
+  <div class="course-title" [ngStyle]="cardStyles()">
+    # {{index + 1 }} / {{ count }} - {{ course.description }}
+  </div>
+  <!-- using @if -->
+  @if (course.id == 1) {
+    <h2>Course with id 1 displayed</h2>
+  }
+  @else if(course.iconUrl)  {
+    <img width="300" alt="Angular Logo"
+         [src]="course.iconUrl">
+  } @else {
+    <h2>No image available...</h2>
+  }
+
+  <!-- using ngIf -->
+  <!--
+  @if (course.id == 1) {
+    <h2>Course with id 1 displayed</h2>
+  }
+
+  <img width="300" alt="Angular Logo"
+       *ngIf="isImageVisible()"
+       [src]="course.iconUrl">
+
+  <ng-template #noImage>
+    <h2>No image available...</h2>
+  </ng-template>
+  -->
+  <div class="course-description">
+     {{ course.longDescription }}
+  </div>
+  <!-- new switch case -->
+  <div class="course-category">
+    @switch (course.category) {
+      @case ('BEGINNER') {
+        <div class="category">Beginner</div>
+      }
+      @case ('INTERMEDIATE') {
+        <div class="category">Intermediate</div>
+      }
+      @case ('ADVANCED') {
+        <div class="category">Advanced</div>
+      }
+      @default {
+        <div class="category">Unknown</div>
+      }
+    }
+    <!-- old switch case + adding container (not creating html element)-->
+    <ng-container [ngSwitch]="course.category" >
+      <!-- [ngSwitch]="course.category" -->
+      <div class="course-category">
+        <ng-container *ngSwitchCase="'BEGINNER'">
+          <div class="category">Beginner</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'INTERMEDIATE'">
+          <div class="category">Intermediate</div>
+        </ng-container>
+        <ng-container *ngSwitchCase="'ADVANCED'">
+          <div class="category">Advanced</div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <div class="category">Unknown</div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+  <!-- we want to emit event -->
+  <button (click)="onCourseViewed()">
+    View Course
+  </button>
+</div>
