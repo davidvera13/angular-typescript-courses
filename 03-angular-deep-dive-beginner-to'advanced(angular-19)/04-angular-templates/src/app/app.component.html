@@ -1,0 +1,60 @@
+<div class="top-menu">
+  <img class="logo"
+       src="./assets/images/main-page-logo-small-hat.png">
+</div>
+
+<div class="courses" #wrapper>
+  @for (
+      course of courses;
+      track course?.id;
+      let index = $index;
+      let count = $count;
+      let last = $last;
+      let even = $even;
+      let odd = $odd) {
+
+
+    <ng-template #blankImage let-courseName="description">
+      <p class="warn"> {{ courseName }} has No image available</p>
+      <img src="./assets/images/empty-image.png" />
+    </ng-template>
+    <div *ngTemplateOutlet="blankImage; context: { description: course.description}"></div>
+    <hr />
+    <course-card
+      (courseSelected)="onCourseSelected($event)"
+      [noImgTempl] = "blankImage"
+      [index]="index"
+      [count]="count"
+      [class.is-first]="$first"
+      [class.is-last]="last"
+      [class.is-even]="even"
+      [class.is-odd]="odd"
+      [course]="course" >
+      <!-- content projection using ng-content -->
+      <!--
+      @if(course.iconUrl)  {
+        <div class="course-image" #courseImage>
+          <img
+            width="300"
+            alt="Angular Logo"
+            [src]="course.iconUrl">
+        </div>
+      } @else {
+      <h2>No image available...</h2>
+      }
+      -->
+
+      <course-image [src]="course.iconUrl"></course-image>
+      <h5>Total lessons: 25</h5>
+
+      <div class="course-description">
+        {{ course.longDescription }}
+      </div>
+    </course-card>
+  } @empty {
+    <h3>No courses where found empty ... </h3>
+  }
+
+</div>
+
+<p>&nbsp;</p>
