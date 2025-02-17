@@ -1,0 +1,38 @@
+<div class="top-menu">
+  <img class="logo"
+       src="./assets/images/main-page-logo-small-hat.png">
+</div>
+
+<button (click)="onCourseEdited()">Edit Courses</button>
+
+
+<div class="courses" #wrapper>
+  <course-card
+    (courseSelected)="onCourseSelected($event)"
+    [index]="42"
+    [course]="courses[0]" />
+  <hr />
+  @for (
+      course of courses;
+      track course?.id;
+      let index = $index;
+      let count = $count;
+      let last = $last;
+      let even = $even;
+      let odd = $odd) {
+    <course-card
+      #cardRef
+      (courseSelected)="onCourseSelected($event)"
+      [index]="index"
+      [count]="count"
+      [class.is-first]="$first"
+      [class.is-last]="last"
+      [class.is-even]="even"
+      [class.is-odd]="odd"
+      [course]="course" />
+  } @empty {
+    <h3>No courses where found empty ... </h3>
+  }
+</div>
+
+<p>&nbsp;</p>

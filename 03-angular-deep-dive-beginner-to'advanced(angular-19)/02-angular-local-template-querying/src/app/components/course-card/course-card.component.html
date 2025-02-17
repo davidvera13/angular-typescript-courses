@@ -1,0 +1,44 @@
+<div class="course-card"
+     *ngIf="course"
+     [ngClass]="setCardClass()"
+>
+  <div class="course-title" [ngStyle]="cardStyles()">
+    # {{index + 1 }} / {{ count }} - {{ course.description }}
+  </div>
+  <!-- using @if -->
+  @if (course.id == 1) {
+    <h2>Course with id 1 displayed</h2>
+  }
+  @else if(course.iconUrl)  {
+    <img width="300" alt="Angular Logo"
+         #courseImage
+         [src]="course.iconUrl">
+  } @else {
+    <h2>No image available...</h2>
+  }
+
+  <div class="course-description">
+     {{ course.longDescription }}
+  </div>
+  <!-- new switch case -->
+  <div class="course-category">
+    @switch (course.category) {
+      @case ('BEGINNER') {
+        <div class="category">Beginner</div>
+      }
+      @case ('INTERMEDIATE') {
+        <div class="category">Intermediate</div>
+      }
+      @case ('ADVANCED') {
+        <div class="category">Advanced</div>
+      }
+      @default {
+        <div class="category">Unknown</div>
+      }
+    }
+  </div>
+  <!-- we want to emit event -->
+  <button (click)="onCourseViewed()">
+    View Course
+  </button>
+</div>
