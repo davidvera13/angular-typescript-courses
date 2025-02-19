@@ -1,0 +1,50 @@
+<div class="top-menu" highlighted>
+  <img class="logo"
+       src="./assets/images/main-page-logo-small-hat.png">
+</div>
+
+<div class="courses" #wrapper>
+  @for (
+      course of courses;
+      track course?.id;
+      let index = $index;
+      let count = $count;
+      let last = $last;
+      let even = $even;
+      let odd = $odd) {
+    <ng-template [ngIf]="course" let-course>
+      <!-- highlighted is a directive applied to an host element-->
+      <course-card
+        highlighted
+        #highlighter = "hl"
+        (toggleHighlight) = "onToggle($event)"
+        (courseSelected)="onCourseSelected($event)"
+        [index]="index"
+        [count]="count"
+        [course]="course" >
+        <course-image
+          *ngxUnless="!course.iconUrl"
+          [src]="course.iconUrl"></course-image>
+        <h5>Total lessons: 25</h5>
+
+        <div class="course-description" (dblclick)="highlighter.toggle()">
+          {{ course.longDescription }}
+        </div>
+      </course-card>
+    </ng-template>
+
+  } @empty {
+    <h3>No courses where found empty ... </h3>
+  }
+</div>
+
+  <!-- disabled required: modify behaviour and or appearance -->
+  <!--
+  <form>
+  <input disabled required>
+  </form>
+  -->
+  <!-- run ng g directive directives/highlighted -->
+
+
+<p>&nbsp;</p>
