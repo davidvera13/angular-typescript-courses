@@ -1,0 +1,44 @@
+<div class="top-menu">
+  <!--
+    trans-unit id is generated based on tag content &
+    information on i18n meaning part ('meaning | description')
+    We can override the id and set with @@
+    -->
+  <h4 i18n="Welcome message | Greet the user at the beginning of the courses@@welcomeMessage">Welcome to Angular Course</h4>
+  <img class="logo"
+       src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+</div>
+
+<div>
+  <div class="courses" *ngIf="courses">
+  <!--
+  <div class="courses" *ngIf="courses">
+  -->
+    <!-- *ngFor="let course of (courses$ | async)" -->
+
+    <div class="demo">
+      <button (click)="onEditCourse()" i18n >Edit course</button>
+      <div i18n>
+        {
+          coursesCount, plural, =0 { No course available }
+          =1 { One course available }
+          other { A total of {{ coursesCount}} courses available }}
+      </div>
+    </div>
+    <!-- if type is not going to change, we can replace [type]="'beginner'" and replace input in child component, replacing with attribute in constructor -->
+    <course-card
+      (courseChanged)="onCourseSave($event)"
+      *ngFor="let course of courses | filterByCategory: 'BEGINNER'"
+      type="beginner"
+      [course]="course">
+      <course-image
+        [src]="course.iconUrl">
+      </course-image>
+    </course-card>
+
+  </div>
+</div>
+
+
+
+
