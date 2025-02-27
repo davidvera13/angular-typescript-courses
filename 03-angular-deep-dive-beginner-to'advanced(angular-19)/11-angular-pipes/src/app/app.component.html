@@ -1,0 +1,32 @@
+<div class="top-menu">
+  <img class="logo"
+       src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+</div>
+
+<div>
+  <div class="courses" *ngIf="courses">
+  <!--
+  <div class="courses" *ngIf="courses">
+  -->
+    <!-- *ngFor="let course of (courses$ | async)" -->
+
+    <div class="demo">
+      <button (click)="onEditCourse()">Edit course</button>
+    </div>
+    <!-- if type is not going to change, we can replace [type]="'beginner'" and replace input in child component, replacing with attribute in constructor -->
+    <course-card
+      (courseChanged)="onCourseSave($event)"
+      *ngFor="let course of courses | filterByCategory: 'BEGINNER'"
+      type="beginner"
+      [course]="course">
+      <course-image
+        [src]="course.iconUrl">
+      </course-image>
+    </course-card>
+
+  </div>
+</div>
+
+
+
+
