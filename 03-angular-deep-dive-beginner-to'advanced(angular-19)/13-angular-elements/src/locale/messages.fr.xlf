@@ -1,0 +1,66 @@
+<!--  ng extract-i18n -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="fr-FR" datatype="plaintext" original="ng2.template">
+    <body>
+
+      <trans-unit id="welcomeMessage" datatype="html">
+        <source>Welcome to Angular Course</source>
+        <target>Bienvenue dans le cours Angular</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">7,13</context>
+        </context-group>
+        <note priority="1" from="description"> Greet the user at the beginning of the courses</note>
+        <note priority="1" from="meaning">Welcome message </note>
+      </trans-unit>
+
+      <trans-unit id="208181907611548740" datatype="html">
+        <source>Edit course</source>
+        <target>Editer le cours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">20,23</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="8856905278208146821" datatype="html">
+        <source> <x id="ICU" equiv-text="{
+          coursesCount, plural, =0 { No course available }
+          =1 { One course available }
+          other { A total of {{ coursesCount}} courses available }}"/> </source>
+         <target> <x id="ICU" equiv-text="{
+          coursesCount, plural, =0 { Aucun cours disponible }
+          =1 { Un cours disponible }
+          other { Un total de {{ coursesCount}} cours sont disponibles }}"/> </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">22,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">23,29</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="8892986036545035217" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {No course available } =1 {One course available } other {A total of <x id="INTERPOLATION"/> courses available }}</source>
+        <target>{VAR_PLURAL, plural, =0 {Aucun cours disponible } =1 {Un cours disponible } other {Un total de <x id="INTERPOLATION"/> courses sont disponibles }}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">23,28</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="4587612384756081379" datatype="html">
+        <source>{VAR_SELECT, select, BEGINNER {Beginner} INTERMEDIATE {Intermediate} ADVANCED {Advanced}}</source>
+        <target>{VAR_SELECT, select, BEGINNER {Beginner} INTERMEDIATE {Intermediate} ADVANCED {Advanced}}</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">23,30</context>
+        </context-group>
+      </trans-unit>
+
+    </body>
+  </file>
+</xliff>
