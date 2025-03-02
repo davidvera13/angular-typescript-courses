@@ -1,0 +1,63 @@
+<div class="top-menu">
+  <!--
+  <h4 i18n="Welcome message | Greet the user at the beginning of the courses@@welcomeMessage">Welcome to Angular Course</h4>
+  -->
+  <img class="logo"
+       src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+</div>
+
+<div style="border: 5px red solid; min-height: 900px; margin: 10px" #triggerDisplay>
+  <button #displayButton>Trigger display...</button>
+</div>
+<h1 #title>Trigger viewport</h1>
+<div class="demo-triggers">
+  <input placeholder="Type to trigger prefetch..." #prefetch /><br />
+  <button (click)="onPrefetch()">1. Trigger prefetch ...</button><br />
+  <button (click)="onDisplay()">2. On display ...</button><br />
+
+  <button #display>Show ...</button>
+
+</div>
+<div>
+  <!--
+   basic defer: @defer {}
+   > on idle
+   > prefetch on immediate
+   with placeholder ...
+   with on on viewport(title); prefetch on idle, content is loaded when we readch the bottom of the dummy div
+   with on interaction; prefetch on idle content is displayed / loaded on click
+   with on interaction(display); prefetch on interaction(prefetch) content is fetched when input is modified and displayed on button click
+  -->
+  @defer(when isDisplayed; prefetch when isPrefetched) {
+    <div class="courses" *ngIf="courses">
+      <!-- heavy weight component that should be loaded if required -->
+      @for (course of courses; track $index; let count = $count) {
+        <course-card
+          (courseChanged)="onCourseSave($event)"
+          *ngFor="let course of courses | filterByCategory: 'BEGINNER'"
+          type="beginner"
+          [course]="course">
+          <course-image
+            [src]="course.iconUrl">
+          </course-image>
+        </course-card>
+      }
+    </div>
+  }
+  @placeholder() {
+    <!-- replacement block -->
+      <h2>This is the placeholder</h2>
+    <!--
+    <button  type="button">click me ...</button>
+    -->
+    <!-- This is component placeholder...-->
+  }
+  @loading(minimum 3s; after 1s) {
+    <!-- loading block -->
+    <h2>This is loading indicator...</h2>
+  } @error {
+    <!-- will be displayed if offline mode is set on network tab in chrome -->
+    <h2>Something went wrong ... </h2>
+  }
+  <!--@placeholder(minimum 2s) { -->
+</div>
