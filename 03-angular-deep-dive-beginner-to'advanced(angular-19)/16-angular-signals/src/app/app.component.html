@@ -1,0 +1,39 @@
+<div class="top-menu">
+  <img class="logo"
+       src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+</div>
+
+<div class="demo-triggers">
+
+</div>
+<div>
+  <div class="courses" *ngIf="courses">
+    <div>Counter value : {{ counter() }}</div>
+    <div>Counter value with counterService: {{ counterService.counter() }}</div>
+    <div>Derived counter value : {{ derivedCounter() }}</div>
+    <div>Mutiplier : {{ multiplier }}</div>
+    <div>Array signal: {{ this.courseTitlesSignal().join(", ") }}</div>
+    <div>object signal: {{ this.courseSignal().title }}</div>
+
+    <button (click)="increment()">Increment</button>
+    <button (click)="counterService.increment()">Increment with counterService</button>
+    <button (click)="incrementMultiplier()">Increment multiplier</button>
+    <button (click)="onCleanup()">Cleanup effect</button>
+    <br />
+
+    <!-- {{ courses | json }} -->
+    @for (course of courses; track $index; let count = $count) {
+      <course-card
+        (courseChanged)="onCourseSave($event)"
+        *ngFor="let course of courses | filterByCategory: 'BEGINNER'"
+        type="beginner"
+        [singleCourse]="course">
+        <course-image
+          [src]="course.iconUrl">
+        </course-image>
+      </course-card>
+    }
+
+  </div>
+
+</div>
