@@ -3,6 +3,34 @@
   <button class="btn">
     Add Course
   </button>
+
+  <ul>
+    <li>counter: {{ counter}}</li>
+    <!-- first signal created -->
+    <li>counter using signal : {{ counterSignal() }}</li>
+    <li>computed signal based on counter using signal {{ tenXmultiplierSignal() }}</li>
+    <li>computed signal based on computed signal {{ hundredXmultiplierSignal() }}</li>
+    <li>read only signal: {{ readOnlySignal() }}</li>
+    <li>object signal : {{ counterTypeSignal().value }}</li>
+    <li>array signal : {{ arraySignal().join(",") }}</li>
+  </ul>
+
+  <button class="btn" (click)="increment()">
+    Incrementing without signal
+  </button>
+
+  <button class="btn" (click)="signalIncrement()">
+    Incrementing with signal
+  </button>
+
+  <button class="btn" (click)="appendNumber()">
+    Append to array signal
+  </button>
+
+  <button class="btn" (click)="effectCleanUp()">
+    Clean up an effect
+  </button>
+
   <mat-tab-group>
     <mat-tab label="Beginners">
     </mat-tab>
