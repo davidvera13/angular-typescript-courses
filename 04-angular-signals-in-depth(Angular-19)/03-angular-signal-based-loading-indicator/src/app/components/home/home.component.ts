@@ -1,6 +1,6 @@
 import {
   afterNextRender,
-  Component, computed, effect, inject, OnInit, signal, Signal, WritableSignal
+  Component, computed, effect, inject, signal, Signal, WritableSignal
 } from '@angular/core';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {Course, sortCoursesBySeqNo} from '../../models/course.model';
@@ -9,6 +9,7 @@ import {CoursesServiceWithFetch} from '../../services/courses-fetch.service';
 import {CoursesCardListComponent} from '../courses-card-list/courses-card-list.component';
 import {openEditCourseDialog} from '../edit-course-dialog/edit-course-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {LoadingService} from '../../services/loading.service';
 
 @Component({
   selector: 'home',
@@ -26,6 +27,7 @@ export class HomeComponent {
   #courses: WritableSignal<Course[]> = signal<Course[]>([]);
 
   // injector replace constructor base injection
+  loadingService = inject(LoadingService);
   //courseService: CoursesService = inject(CoursesServiceWithFetch);
   courseService: CoursesService = inject(CoursesService);
   dialog = inject(MatDialog);
@@ -52,16 +54,18 @@ export class HomeComponent {
   //  })
   //}
   async getCourses(){
-    //this.courseService.getCourses()
-    //  .then(courses => {this.courses.set(courses)})
-    //  .catch(...);
+    // note: turning on / off loader can be cumbersome, we can use interceptor more easily
     try {
+     //this.loadingService.loadingOn();
       const courses = await this.courseService.getCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (error) {
       alert("Something went wrong");
       console.error(error);
     }
+    // finally {
+    //  this.loadingService.loadingOff();
+    //}
 
   }
 
