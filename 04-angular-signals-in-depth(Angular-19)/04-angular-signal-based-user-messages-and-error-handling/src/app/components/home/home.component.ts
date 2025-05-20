@@ -9,7 +9,7 @@ import {CoursesServiceWithFetch} from '../../services/courses-fetch.service';
 import {CoursesCardListComponent} from '../courses-card-list/courses-card-list.component';
 import {openEditCourseDialog} from '../edit-course-dialog/edit-course-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {LoadingService} from '../../services/loading.service';
+import {MessagesService} from '../../services/messages.service';
 
 @Component({
   selector: 'home',
@@ -27,7 +27,7 @@ export class HomeComponent {
   #courses: WritableSignal<Course[]> = signal<Course[]>([]);
 
   // injector replace constructor base injection
-  loadingService = inject(LoadingService);
+  messageService = inject(MessagesService);
   //courseService: CoursesService = inject(CoursesServiceWithFetch);
   courseService: CoursesService = inject(CoursesService);
   dialog = inject(MatDialog);
@@ -60,7 +60,8 @@ export class HomeComponent {
       const courses = await this.courseService.getCourses();
       this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (error) {
-      alert("Something went wrong");
+      //alert("Something went wrong");
+      this.messageService.showMessage('Error loading courses', 'error');
       console.error(error);
     }
     // finally {
@@ -97,7 +98,8 @@ export class HomeComponent {
     }
     catch (error) {
       console.error(error);
-      alert("Something went wrong");
+      //alert("Something went wrong");
+      this.messageService.showMessage('Error deleting courses', 'error');
     }
   }
 
