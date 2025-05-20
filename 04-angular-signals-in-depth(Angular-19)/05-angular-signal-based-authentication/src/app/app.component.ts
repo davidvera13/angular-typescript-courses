@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {MatSidenav, MatSidenavContainer} from "@angular/material/sidenav";
 import {MatListItem, MatNavList} from "@angular/material/list";
@@ -7,6 +7,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
 import {LoadingIndicatorComponent} from './components/loading/loading.component';
 import {MessagesComponent} from './components/messages/messages.component';
+import {AuthService} from './services/auth.service';
 
 
 @Component({
@@ -28,6 +29,11 @@ import {MessagesComponent} from './components/messages/messages.component';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = "05-angular-signal-based-authentication";
+  authService = inject(AuthService);
+  isLoggedIn =  this.authService.isLoggedIn;
 
+
+  onLogout() {
+    this.authService.logout()
+  }
 }
