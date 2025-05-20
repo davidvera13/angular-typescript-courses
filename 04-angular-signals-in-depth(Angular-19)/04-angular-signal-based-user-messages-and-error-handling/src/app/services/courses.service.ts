@@ -1,10 +1,9 @@
 import {inject, Injectable} from "@angular/core";
 import {Course} from '../models/course.model';
 import {environment} from '../../environments/environment.development';
-import {HttpClient, HttpContext} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {GetCoursesResponse} from '../models/get-courses.response';
 import {firstValueFrom} from 'rxjs';
-import {SkipLoading} from '../components/loading/skip-loading.component';
 
 
 @Injectable({
@@ -17,7 +16,8 @@ export class CoursesService {
   // we won't return Observable<Course[]>, we'll use Promises, will work with async & await
   async getCourses(): Promise<Course[]> {
     const response$ = this.http
-      .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`) // ,
+      .get<GetCoursesResponse>(`${this.env.apiRoot}/courses`);
+        // ,
         // using HttpContext prevent use of the interceptor
         //{
         //  context: new HttpContext().set(SkipLoading, true)
