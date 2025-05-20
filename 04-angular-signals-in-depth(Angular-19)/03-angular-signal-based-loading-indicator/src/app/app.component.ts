@@ -5,6 +5,7 @@ import {MatListItem, MatNavList} from "@angular/material/list";
 import {MatIcon} from "@angular/material/icon";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIconButton} from "@angular/material/button";
+import {LoadingIndicatorComponent} from './components/loading/loading.component';
 
 
 @Component({
@@ -18,7 +19,8 @@ import {MatIconButton} from "@angular/material/button";
     MatIcon,
     RouterLink,
     MatToolbar,
-    MatIconButton
+    MatIconButton,
+    LoadingIndicatorComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
