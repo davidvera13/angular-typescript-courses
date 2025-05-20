@@ -14,7 +14,7 @@ export const loaderInterceptor: HttpInterceptorFn =
 
   return next(req).pipe(
     finalize(() => {
-      loadingService.loadingOn();
+      loadingService.loadingOff();
     })
   );
 };
