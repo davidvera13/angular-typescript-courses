@@ -5,12 +5,24 @@ import {LessonsComponent} from "./components/lessons/lessons.component";
 import {ResourceDemoComponent} from "./components/resource-demo/resource-demo.component";
 import {LinkedSignalDemoComponent} from "./components/linked-signals-demo/linked-signal-demo.component";
 import {authGuard} from './guards/auth.guard';
+import {CourseComponent} from './components/course/course.component';
+import {courseResolver} from './resolvers/course.resolver';
+import {lessonsResolver} from './resolvers/lessons.resolver';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: 'courses/:id',
+    component: CourseComponent,
+    canActivate: [authGuard],
+    resolve: {
+      course: courseResolver,
+      lessons: lessonsResolver
+    }
   },
   {
     path: "login",

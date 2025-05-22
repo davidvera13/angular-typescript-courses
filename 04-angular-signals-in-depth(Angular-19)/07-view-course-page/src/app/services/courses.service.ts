@@ -23,7 +23,6 @@ export class CoursesService {
         //  context: new HttpContext().set(SkipLoading, true)
         //});
     const response = await firstValueFrom(response$); // convert observable to promise
-
     return response.courses;
   }
 
@@ -45,6 +44,11 @@ export class CoursesService {
   async deleteCourse(courseId: string): Promise<void> {
     const response$ = this.http
       .delete<void>(`${this.env.apiRoot}/courses/${courseId}`);
+    return firstValueFrom(response$);
+  }
+
+  async getCourseById(courseId: string): Promise<Course> {
+    const response$ = this.http.get<Course>(`${this.env.apiRoot}/courses/${courseId}`);
     return firstValueFrom(response$);
   }
 }

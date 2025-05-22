@@ -7,7 +7,9 @@ import {openEditCourseDialog} from '../edit-course-dialog/edit-course-dialog.com
 
 @Component({
     selector: 'courses-card-list',
-    imports: [],
+  imports: [
+    RouterLink
+  ],
     templateUrl: './courses-card-list.component.html',
     styleUrl: './courses-card-list.component.scss'
 })
