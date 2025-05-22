@@ -19,6 +19,13 @@
     </textarea>
   </div>
 
+  <!-- Model Inputs and Two-Way Data Binding -->
+  <!--"banana-in-a-box" = 2 way binding -->
+  <course-category-combobox
+    defaultLabel="Course Category"
+    [(value)] = "category"
+  />
+  <!--
   <div class="form-control">
     <label>Course category:</label>
     <select formControlName = "category">
@@ -27,7 +34,7 @@
       <option value="ADVANCED">Advanced</option>
     </select>
   </div>
-
+  -->
   <div class="form-control">
     <label>Course image:</label>
     <input

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, effect, inject, signal} from '@angular/core';
 
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {LoadingIndicatorComponent} from '../loading/loading.component';
@@ -8,6 +8,8 @@ import {firstValueFrom} from 'rxjs';
 import {Course} from '../../models/course.model';
 import {CoursesService} from '../../services/courses.service';
 import {CoursesServiceWithFetch} from '../../services/courses-fetch.service';
+import {CourseCategoryComboboxComponent} from '../course-category-combobox/course-category-combobox.component';
+import {CourseCategory} from '../../models/course-category.model';
 
 @Component({
   selector: 'edit-course-dialog',
@@ -15,6 +17,7 @@ import {CoursesServiceWithFetch} from '../../services/courses-fetch.service';
   imports: [
     LoadingIndicatorComponent,
     ReactiveFormsModule,
+    CourseCategoryComboboxComponent,
   ],
   templateUrl: './edit-course-dialog.component.html',
   styleUrl: './edit-course-dialog.component.scss'
@@ -28,21 +31,28 @@ export class EditCourseDialogComponent {
   form: FormGroup = this.fb.group({
     title: [''],
     longDescription: [''],
-    category: [''],
+    //category: [''],
     iconUrl: ['']
   });
+  category = signal<CourseCategory>("BEGINNER");
 
   constructor() {
     this.form.patchValue({
       title: this.data?.course?.title,
       longDescription: this.data?.course?.longDescription,
-      category: this.data?.course?.category,
+      //category: this.data?.course?.category,
       iconUrl: this.data?.course?.iconUrl,
-    })
+    });
+    this.category.set(this.data?.course?.category ?? "BEGINNER");
+
+    effect(() => {
+      console.log(`Course category bi directional binding: ${this.category()}`);
+    });
   }
 
   async onSave() {
     const courseProps = this.form.value as Partial<Course>;
+    courseProps.category = this.category();
     if(this.data?.mode === 'update') {
       await this.updateCourse(this.data?.course!.id, courseProps);
     }

@@ -29,7 +29,7 @@ export class CoursesCardListComponent {
     });
    // emit event
     this.courseUpdated.emit(updatedCourse);
-   console.log("course to update", updatedCourse);
+    console.log("course to update", updatedCourse);
   }
 
   onDeleteCourse(course: Course) {
