@@ -1,6 +1,6 @@
 import {
   afterNextRender,
-  Component, computed, effect, ElementRef, inject, signal, Signal, viewChild, WritableSignal
+  Component, computed, effect, ElementRef, inject, Injector, signal, Signal, viewChild, WritableSignal
 } from '@angular/core';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {Course, sortCoursesBySeqNo} from '../../models/course.model';
@@ -11,7 +11,8 @@ import {openEditCourseDialog} from '../edit-course-dialog/edit-course-dialog.com
 import {MatDialog} from '@angular/material/dialog';
 import {MessagesService} from '../../services/messages.service';
 import {MatTooltip} from '@angular/material/tooltip';
-import {toObservable} from '@angular/core/rxjs-interop';
+import {toObservable, toSignal} from '@angular/core/rxjs-interop';
+import {catchError, from, interval, startWith} from 'rxjs';
 
 @Component({
   selector: 'home',
@@ -26,15 +27,20 @@ import {toObservable} from '@angular/core/rxjs-interop';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  // note: # indicates property is private
-  #courses: WritableSignal<Course[]> = signal<Course[]>([]);
-
-
   // injector replace constructor base injection
   messageService = inject(MessagesService);
   //courseService: CoursesService = inject(CoursesServiceWithFetch);
   courseService: CoursesService = inject(CoursesService);
   dialog = inject(MatDialog);
+
+  // note: # indicates property is private
+  #courses: WritableSignal<Course[]> = signal<Course[]>([]);
+  // convert a signal to observable
+  course$ = toObservable(this.#courses);
+  courseObs$ = from(this.courseService.getCourses())
+  injector = inject(Injector);
+
+
 
   beginnersList = viewChild<CoursesCardListComponent>("beginnersList")
   tootType =  viewChild("beginnersList", {
@@ -61,6 +67,11 @@ export class HomeComponent {
       console.log('beginnerCourses', this.beginnerCourses());
       console.log('advancedCourses', this.advancedCourses());
     });
+
+
+    this.course$.subscribe(courses => {
+      console.log("reading courses$: ", courses);
+    })
   }
 
   //ngOnInit() {
@@ -134,5 +145,99 @@ export class HomeComponent {
     ];
 
     this.#courses.set(newCourses);
+  }
+
+  onConvertToObservable() {
+    //ERROR RuntimeError: NG0203: toObservable() can only be used within an injection context such as a constructor,
+    // a factory function, a field initializer, or a function used with `runInInjectionContext`. Find more at
+    // https://angular.dev/errors/NG0203
+    //const courses$ = toObservable(this.#courses)
+
+    const courses$ = toObservable(this.#courses, {
+      injector: this.injector,
+    })
+    courses$.subscribe(courses => {
+      console.log("reading courses$ onClick: ", courses);
+    })
+
+    // other case =
+    const numbers = signal(0);
+    numbers.set(1);
+    numbers.set(2);
+    numbers.set(3);
+
+    // toObservable uses effect to monitor changes
+    const numbers$ = toObservable(numbers, {
+      injector: this.injector
+    });
+    numbers.set(4);
+
+    numbers$.subscribe(val => {
+      console.log(`numbers$: `, val)
+    })
+    // only the last value will trigger subscription
+    numbers.set(5);
+  }
+
+  onConvertToSignal() {
+    const courses = toSignal(this.courseObs$, {
+      injector: this.injector,
+    });
+    effect(() => {
+      console.log("courses() from observables: ", courses());
+    }, {
+      injector: this.injector,
+    });
+  }
+  onConvertToSignalWithConfig() {
+    //const numbers$ = interval(1000);
+    // forcing init value
+    const numbers$ = interval(1000)
+      .pipe(
+        startWith(0)
+      );
+    const numbers = toSignal(numbers$, {
+      injector: this.injector,
+      requireSync: true
+      //initialValue: 0
+    })
+
+    effect(() => {
+      // 1st value is undefined unless initial value is set OR requireSync is set to TRUE and observable has an initial
+      // value
+      console.log("numbers: ", numbers());
+    }, {
+      injector: this.injector,
+    })
+  }
+
+  onConvertToSignalWithError() {
+    try {
+      const courses$ = from(this.courseService.getCourses())
+        .pipe(
+          catchError(err => {
+            // will be triggers if we stop backend server
+            console.log(`Error caught in catchError`, err)
+            throw err;
+          })
+        );
+      const courses = toSignal(courses$, {
+        injector: this.injector,
+        rejectErrors: true
+      })
+      effect(() => {
+        console.log(`Courses: `, courses())
+      }, {
+        injector: this.injector
+      })
+
+      setInterval(() => {
+        console.log(`Reading courses signal: `, courses())
+      }, 1000)
+
+    }
+    catch (err) {
+      console.log(`Error in catch block: `, err)
+    }
   }
 }

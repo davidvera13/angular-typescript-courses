@@ -7,6 +7,35 @@
     Add Course
   </button>
 
+  <button
+    class="btn"
+    (click)="onConvertToObservable()"
+  >
+    to observable
+  </button>
+
+  <button
+    class="btn"
+    (click)="onConvertToSignal()"
+  >
+    to signal
+  </button>
+  <button
+    class="btn"
+    (click)="onConvertToSignalWithConfig()"
+  >
+    to signal with configuration
+  </button>
+
+  <button
+    class="btn"
+    (click)="onConvertToSignalWithError()"
+  >
+    to signal with error handling
+  </button>
+
+
+
   <mat-tab-group>
     <mat-tab label="Beginners">
       <courses-card-list
