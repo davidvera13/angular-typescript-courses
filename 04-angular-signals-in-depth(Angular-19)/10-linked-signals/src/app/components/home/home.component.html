@@ -1,0 +1,57 @@
+<div class="courses-panel">
+  <h3>All Courses</h3>
+  <button
+    class="btn"
+    (click)="onAddCourse()"
+  >
+    Add Course
+  </button>
+
+  <button
+    class="btn"
+    (click)="onConvertToObservable()"
+  >
+    to observable
+  </button>
+
+  <button
+    class="btn"
+    (click)="onConvertToSignal()"
+  >
+    to signal
+  </button>
+  <button
+    class="btn"
+    (click)="onConvertToSignalWithConfig()"
+  >
+    to signal with configuration
+  </button>
+
+  <button
+    class="btn"
+    (click)="onConvertToSignalWithError()"
+  >
+    to signal with error handling
+  </button>
+
+
+
+  <mat-tab-group>
+    <mat-tab label="Beginners">
+      <courses-card-list
+        #beginnersList
+        #toolTipe
+        matTooltip = "This are beginners courses "
+        (courseUpdated) = "onCourseUpdated($event)"
+        (courseDeleted)="onCourseDeleted($event)"
+        [courses] = "beginnerCourses()"
+      />
+    </mat-tab>
+    <mat-tab label="Advanced">
+      <courses-card-list
+        (courseUpdated) = "onCourseUpdated($event)"
+        (courseDeleted)="onCourseDeleted($event)"
+        [courses] = "advancedCourses()" />
+    </mat-tab>
+  </mat-tab-group>
+</div>
