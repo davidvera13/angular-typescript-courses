@@ -1,5 +1,6 @@
 <div class="form-control">
-  <label>{{ defaultLabel() }}</label>
+  <label>{{ defaultLabel() }} from parent component ...</label>
+  <ng-content select=".title"/>
   <select
     [value]="value()"
     (change)="onCategoryChanged(category.value)"

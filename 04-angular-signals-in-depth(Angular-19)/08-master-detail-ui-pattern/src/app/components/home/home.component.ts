@@ -1,6 +1,6 @@
 import {
   afterNextRender,
-  Component, computed, effect, inject, signal, Signal, WritableSignal
+  Component, computed, effect, ElementRef, inject, signal, Signal, viewChild, WritableSignal
 } from '@angular/core';
 import {MatTab, MatTabGroup} from "@angular/material/tabs";
 import {Course, sortCoursesBySeqNo} from '../../models/course.model';
@@ -10,6 +10,7 @@ import {CoursesCardListComponent} from '../courses-card-list/courses-card-list.c
 import {openEditCourseDialog} from '../edit-course-dialog/edit-course-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MessagesService} from '../../services/messages.service';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'home',
@@ -18,6 +19,7 @@ import {MessagesService} from '../../services/messages.service';
     MatTabGroup,
     MatTab,
     CoursesCardListComponent,
+    MatTooltip,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -32,12 +34,26 @@ export class HomeComponent {
   courseService: CoursesService = inject(CoursesService);
   dialog = inject(MatDialog);
 
+  beginnersList = viewChild<CoursesCardListComponent>("beginnersList")
+  tootType =  viewChild("beginnersList", {
+     read: MatTooltip
+    });
+
+  //beginnersList = viewChild("beginnersList", {
+  //  read: ElementRef
+  //});
+
   constructor() {
     // behave like ngOnInit(): called one time
     afterNextRender(() => {
       this.getCourses().then((courses) =>
         console.log('Courses loaded: ', this.#courses()))
     })
+
+    effect(() => {
+      console.log("beginnerList loaded", this.beginnersList());
+      console.log("Tools type loaded", this.tootType());
+    });
 
     effect(() => {
       console.log('beginnerCourses', this.beginnerCourses());

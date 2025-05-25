@@ -1,4 +1,4 @@
-import {Component, inject, input, output} from '@angular/core';
+import {Component, effect, ElementRef, inject, input, output, Signal, viewChildren} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {Course} from '../../models/course.model';
 import {MatDialog} from '@angular/material/dialog';
@@ -18,8 +18,12 @@ export class CoursesCardListComponent {
   dialog = inject(MatDialog);
   courseUpdated = output<Course>()
   courseDeleted = output<string>()
+  courseCards: Signal<ReadonlyArray<ElementRef>> = viewChildren<ElementRef>("courseCard");
 
   constructor() {
+    effect(() => {
+      console.log("this.courseCards >", this.courseCards());
+    });
   }
 
 
