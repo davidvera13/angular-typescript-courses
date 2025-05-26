@@ -1,21 +1,48 @@
 import { Component, Inject} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from "@angular/material/dialog";
 import {Course} from "../model/course";
-import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {FormBuilder, Validators, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import moment from 'moment';
 import {CoursesService} from "../services/courses.service";
 import {LoadingService} from "../../shared/loading/loading.service";
 import {MessagesService} from "../../shared/messages/messages.service";
+import {SharedModule} from "../../shared/shared.module";
+import {MatFormField, MatInput} from "@angular/material/input";
+import {MatSelect} from "@angular/material/select";
+import {MatOption} from "@angular/material/core";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatButton} from "@angular/material/button";
 
 
 @Component({
-    selector: 'course-dialog',
-    templateUrl: './course-dialog.component.html',
-    styleUrls: ['./course-dialog.component.css'],
-    providers: [
-        LoadingService,
-        MessagesService
-    ]
+  imports: [
+    MatDialogActions,
+    SharedModule,
+    MatDialogContent,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    ReactiveFormsModule,
+    MatInput,
+    MatDialogTitle,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatDatepickerInput,
+    MatButton
+  ],
+  providers: [
+    LoadingService,
+    MessagesService
+  ],
+  selector: 'course-dialog',
+  styleUrls: ['./course-dialog.component.css'],
+  templateUrl: './course-dialog.component.html'
 })
 export class CourseDialogComponent {
 

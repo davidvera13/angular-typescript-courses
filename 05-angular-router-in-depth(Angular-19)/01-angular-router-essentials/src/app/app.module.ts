@@ -30,26 +30,31 @@ import {AboutComponent} from "./about/about.component";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import { ChatComponent } from './chat/chat.component';
 
-@NgModule({ declarations: [
-        AppComponent,
-        AboutComponent,
-        PageNotFoundComponent,
-        LoginComponent,
-        ChatComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        MatMenuModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatInputModule,
-        MatCardModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        SharedModule], providers: [
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
+@NgModule({
+  declarations: [
+    AppComponent,
+    AboutComponent,
+    PageNotFoundComponent,
+    LoginComponent,
+    ChatComponent
+  ],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatCardModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    SharedModule],
+  providers: [
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class AppModule {
 }

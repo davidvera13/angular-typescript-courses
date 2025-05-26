@@ -9,7 +9,6 @@ import {concatMap, finalize, tap} from 'rxjs/operators';
 export class LoadingService {
 
     private loadingSubject = new BehaviorSubject<boolean>(false);
-
     loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
     constructor() {
@@ -26,12 +25,15 @@ export class LoadingService {
     }
 
     loadingOn() {
-        this.loadingSubject.next(true);
-
+      this.loadingSubject.next(true);
     }
 
     loadingOff() {
+      // it loads too quickly
+      setTimeout(() => {
         this.loadingSubject.next(false);
+      }, 500)
+
     }
 
 }

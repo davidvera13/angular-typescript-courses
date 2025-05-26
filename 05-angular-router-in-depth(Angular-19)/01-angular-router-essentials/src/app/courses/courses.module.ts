@@ -28,13 +28,6 @@ import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    CourseComponent,
-    CourseDialogComponent,
-    LessonDetailComponent,
-    CoursesCardListComponent,
-    LessonsListComponent,
-
   ],
   imports: [
     CommonModule,
@@ -54,6 +47,12 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatMomentDateModule,
     SharedModule,
     ReactiveFormsModule,
+    HomeComponent,
+    CourseComponent,
+    CourseDialogComponent,
+    LessonDetailComponent,
+    CoursesCardListComponent,
+    LessonsListComponent,
   ],
   providers: [
     CoursesService

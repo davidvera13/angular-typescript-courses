@@ -14,7 +14,7 @@ export class CoursesService {
 
     }
 
-    loadCourseByUrl(courseUrl:string) {
+    loadCourseByUrl(courseUrl:string): Observable<Course> {
        return this.http.get<Course>(`/api/courses/${courseUrl}`)
             .pipe(
               shareReplay()
