@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Course} from '../model/course';
 import {NgIf} from "@angular/common";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterOutlet} from "@angular/router";
 
 
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
   imports: [
-    NgIf
+    NgIf,
+    RouterOutlet
   ],
   styleUrls: ['./course.component.css']
 })
