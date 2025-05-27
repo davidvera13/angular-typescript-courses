@@ -24,6 +24,10 @@ export class CourseComponent implements OnInit {
       this.course = this.route.snapshot.data['course'];
     }
 
+    confirmExit(): boolean {
+      return confirm(`Are you sure to exit ${this.course.description }`);
+    }
+
 
 }
 

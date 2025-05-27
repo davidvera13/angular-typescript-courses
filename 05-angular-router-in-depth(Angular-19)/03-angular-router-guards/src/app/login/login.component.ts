@@ -4,6 +4,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from '@angular/forms';
 
 import {Router} from '@angular/router';
 import {AuthStore} from '../services/auth.store';
+import {User} from "../model/user";
 
 @Component({
     selector: 'login',
@@ -32,19 +33,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
     const val = this.form.value;
-
     this.auth.login(val.email, val.password)
-        .subscribe(
-            () => {},
-            err => {
-                alert("Login failed!");
-            }
-        );
-
-
-
+      .subscribe({
+        next: (user: User) => {
+          console.log("user successfully logged in: ", user);
+          this.router.navigateByUrl('/courses').then();
+        },
+        error: error => {
+          alert("Login failed!");
+        },
+        complete: () => {}
+      });
   }
 
 }

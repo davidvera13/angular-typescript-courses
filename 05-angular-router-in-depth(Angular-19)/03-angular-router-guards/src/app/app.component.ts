@@ -11,7 +11,8 @@ import {AuthStore} from './services/auth.store';
 })
 export class AppComponent implements  OnInit {
 
-    constructor(public auth: AuthStore) {
+    constructor(
+      public auth: AuthStore) {
 
     }
 
