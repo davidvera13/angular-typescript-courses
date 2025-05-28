@@ -22,6 +22,10 @@ export class CourseComponent implements OnInit {
 
     ngOnInit() {
       this.course = this.route.snapshot.data['course'];
+      // http://localhost:4200/courses/angular-router-course?couponCode=NEW_YEAR
+      this.couponCode = this.route.snapshot.queryParamMap.get("couponCode");
+      // use subscription if query param may change and of we need to follow value changes
+      // this.route.queryParamMap.subscribe(...)
     }
 
     confirmExit(): boolean {

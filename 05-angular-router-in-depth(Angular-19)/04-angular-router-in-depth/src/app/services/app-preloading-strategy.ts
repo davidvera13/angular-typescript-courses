@@ -9,10 +9,10 @@ export class AppPreloadingStrategy implements PreloadingStrategy {
 
     preload(
       route: Route,
-      fn: () => Observable<any>): Observable<any> {
+      load: () => Observable<any>): Observable<any> {
         //throw new Error("Method not implemented.");
       if (route.data["preload"]) {
-        return fn();
+        return load();
       }
       else {
         of(null);
